@@ -1,0 +1,21 @@
+## host shell
+$ command -v bash; bash --version | head -1
+/bin/bash
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+
+## BASE 87fa81b: subshell call under set -u (how fm_tasks_axi calls it)
+$ bash -c 'set -u; . base/fm-timeout-lib.sh; ( fm_exec_timed 5 1 echo ran ); echo rc=$?'
+bin/fm-timeout-lib.sh: line 224: BASHPID: unbound variable
+rc=127
+
+## TARGET a1ee05e: same call
+$ bash -c 'set -u; . bin/fm-timeout-lib.sh; ( fm_exec_timed 5 1 echo ran ); echo rc=$?'
+ran
+rc=0
+
+## TARGET: command status passes through, set -eu
+ran
+rc=7
+
+## TARGET: a command past its bound is ended with 124
+rc=124 elapsed=3s

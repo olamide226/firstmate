@@ -1,0 +1,86 @@
+# worker launch, firstmate tree at BASE 87fa81b (87fa81b8b7f6912f84658d52d816bb9bcc2c5da6)
+host bash: /bin/bash - GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+lab tree: 87fa81b8b7f6912f84658d52d816bb9bcc2c5da6
+
+## backlog item before the launch
+task:
+  id: <worker-id>
+  title: lab launch check
+  state: queued
+  blocked: no
+  blocked_by: none
+  held: no
+  hold_reason: "-"
+  hold_kind: "-"
+  hold_until: "-"
+  kind: ship
+  repo: notes
+  priority: "-"
+  created: 2026-10-02
+  closed: "-"
+  deps: none
+  links: none
+  body: ""
+
+## the launch
+$ FM_HOME=<lab>/home bin/fm-spawn.sh <worker-id> <lab>/home/projects/notes --mode local-only --yolo on --harness claude --model sonnet --effort low
+error: task <worker-id>'s backlog item could not be moved to In flight (<lab>/home/bin/fm-timeout-lib.sh: line 224: BASHPID: unbound variable); its record was removed so no worker is left that the backlog does not own - close out endpoint firstmate:fm-<worker-id> and local copy <lab>/treehouse/.treehouse/notes-d8231d/1/notes by hand, then re-run the spawn
+warning: leaving task <worker-id>'s slot claim on <lab>/treehouse/.treehouse/notes-d8231d/1/notes in place; the Treehouse project lock is no longer held, so the next spawn's claim replaces it
+fm-spawn.sh exit status: 1
+
+## state after the launch
+task record state/<worker-id>.meta: absent
+backlog item:
+task:
+  id: <worker-id>
+  title: lab launch check
+  state: queued
+  blocked: no
+  blocked_by: none
+  held: no
+  hold_reason: "-"
+  hold_kind: "-"
+  hold_until: "-"
+  kind: ship
+  repo: notes
+  priority: "-"
+  created: 2026-10-02
+  closed: "-"
+  deps: none
+  links: none
+  body: ""
+lab tmux windows:
+lab dead=0 cmd=zsh
+fm-<worker-id> dead=0 cmd=zsh
+worker pane (last non-empty lines):
+                                             ░▓▓███▓▓░
+ *                                 ░░░░
+                                 ░░░░░░░░
+                               ░░░░░░░░░░░░░░░░
+       █████████                                        *
+      ██▄█████▄██                        *
+       █████████      *
+.......█ █   █ █..........................................
+ Let's get started.
+ Choose the text style that looks best with your terminal
+ To change this later, run /theme
+     Auto (match terminal)
+ ❯ ✔ Dark mode
+     Light mode
+     Dark mode (colorblind-friendly)
+     Light mode (colorblind-friendly)
+     Dark mode (ANSI colors only)
+     Light mode (ANSI colors only)
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+  1  function greet() {
+  2 -  console.log("Hello, World!");
+  2 +  console.log("Hello, Claude!");
+  3  }
+ ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+  Syntax theme: Monokai Extended (ctrl+t to disable)
+
+## teardown
+lab project entries written to the operator's ~/.claude.json: 0
+lab project entries written to the lab's own Claude store: 2
+operator ~/.treehouse gained entries: none
+lab removed: yes

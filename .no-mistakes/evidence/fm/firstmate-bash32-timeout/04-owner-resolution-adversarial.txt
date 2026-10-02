@@ -1,0 +1,27 @@
+host: GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+
+## A. PATH holds no sh at all (perl, bash, sleep only), set -eu: the frame is still resolved
+PATH entries: bash perl sleep 
+ran-without-sh-on-PATH
+rc=3
+
+## B. subshell call: the calling script is the owner.
+##    The script is SIGKILLed mid-run; the command must end long before its 60s bound.
+before: script=alive watchdog=alive command=alive
+<evidence>/drive-owner-resolution.sh: line 16: 95764 Killed: 9               bash -c 'set -eu; . "$1"; echo $$ > "$2/script"; ( fm_exec_timed 60 1 bash -c "echo \$\$ > \"\$1/cmd\"; exec sleep 300" _ "$2" ) & echo $! > "$2/watchdog"; wait' _ "$LIB" "$d" > /dev/null 2>&1
+after SIGKILL of script: watchdog=gone command=gone (ended 0.15s after the kill; bound was 60s)
+
+## C. unsubshelled call: the script's PARENT is the owner.
+##    The parent is SIGKILLed; the command must end long before its 60s bound.
+before: parent=alive watchdog=alive command=alive
+<evidence>/drive-owner-resolution.sh: line 16: 95963 Killed: 9               bash -c 'echo $$ > "$2/parent"; bash -c '\''set -eu; . "$1"; echo $$ > "$2/watchdog"; fm_exec_timed 60 1 bash -c "echo \$\$ > \"\$1/cmd\"; exec sleep 300" _ "$2"'\'' _ "$@"; :' _ "$LIB" "$d" > /dev/null 2>&1
+after SIGKILL of parent: watchdog=gone command=gone (ended 0.65s after the kill; bound was 60s)
+
+## D. no false positive: with its owner alive a 3s command runs to completion (subshell, then unsubshelled)
+finished-subshell
+rc=0 elapsed=4s
+finished-unsubshelled
+rc=0 elapsed=3s
+
+## E. the pid the fallback computes is the real subshell pid ($! of that subshell), not the script pid
+script=99190 subshell=99200 fallback-frame=99200 BASHPID=<unset>

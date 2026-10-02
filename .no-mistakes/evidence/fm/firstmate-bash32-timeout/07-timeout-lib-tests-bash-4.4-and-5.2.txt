@@ -1,0 +1,59 @@
+=================== Bash 4.4.18 ===================
+bash on PATH: 4.4.18(1)-release, BASHPID is set81168
+$ unset BASHPID   # what the BASHPID-free test cases attempt
+bash: line 0: unset: BASHPID: cannot unset: readonly variable
+rc=1 BASHPID afterwards: still set81169
+$ bash -c 'set -eu; . bin/fm-timeout-lib.sh; ( fm_exec_timed 5 1 bash -c "echo ran; exit 7" )'
+ran
+rc=7
+$ bash tests/fm-timeout-lib.test.sh
+exit=0
+ok - fm_exec_timed passes a command's status and output through unchanged
+ok - fm_run_timed reports 124 when the bound TERMs a read whose wrapper recorded 143
+ok - fm_run_timed passes a natural exit through when the bound fired after completion
+ok - fm_exec_timed sends TERM at the bound and a cooperative command ends there
+ok - fm_exec_timed kills a TERM-ignoring command once the grace has passed
+ok - fm_exec_timed replaces the calling shell instead of wrapping it
+ok - fm_exec_timed reaps a descendant that would otherwise hold the output past the bound
+ok - fm_exec_timed forwards a TERM it receives to the bounded command
+ok - fm_exec_timed ends the command when its named owner is already gone
+ok - fm_exec_timed ends the command when its owner dies during watchdog startup
+ok - fm_exec_timed ends an unsubshelled command when the script's parent is already gone
+ok - fm_exec_timed bounds a command on a shell that has no BASHPID
+ok - fm_exec_timed prefers its perl watchdog over timeout
+ok - fm_exec_timed refuses instead of running unbounded when no mechanism exists
+ok - fm_exec_timed rejects a zero, padded, non-numeric, or missing bound and a missing command
+ok - fm_exec_timed's GNU timeout fallback (skipped: no timeout binary on this host)
+ok - fm_timed_out accepts 124 and 137 and nothing else
+--- stderr of the test run ---
+_: line 3: 81259 Terminated: 15          "$@"
+
+=================== Bash 5.2.37 ===================
+bash on PATH: 5.2.37(1)-release, BASHPID is set82865
+$ unset BASHPID   # what the BASHPID-free test cases attempt
+rc=0 BASHPID afterwards: gone
+$ bash -c 'set -eu; . bin/fm-timeout-lib.sh; ( fm_exec_timed 5 1 bash -c "echo ran; exit 7" )'
+ran
+rc=7
+$ bash tests/fm-timeout-lib.test.sh
+exit=0
+ok - fm_exec_timed passes a command's status and output through unchanged
+ok - fm_run_timed reports 124 when the bound TERMs a read whose wrapper recorded 143
+ok - fm_run_timed passes a natural exit through when the bound fired after completion
+ok - fm_exec_timed sends TERM at the bound and a cooperative command ends there
+ok - fm_exec_timed kills a TERM-ignoring command once the grace has passed
+ok - fm_exec_timed replaces the calling shell instead of wrapping it
+ok - fm_exec_timed reaps a descendant that would otherwise hold the output past the bound
+ok - fm_exec_timed forwards a TERM it receives to the bounded command
+ok - fm_exec_timed ends the command when its named owner is already gone
+ok - fm_exec_timed ends the command when its owner dies during watchdog startup
+ok - fm_exec_timed ends an unsubshelled command when the script's parent is already gone
+ok - fm_exec_timed bounds a command on a shell that has no BASHPID
+ok - fm_exec_timed prefers its perl watchdog over timeout
+ok - fm_exec_timed refuses instead of running unbounded when no mechanism exists
+ok - fm_exec_timed rejects a zero, padded, non-numeric, or missing bound and a missing command
+ok - fm_exec_timed's GNU timeout fallback (skipped: no timeout binary on this host)
+ok - fm_timed_out accepts 124 and 137 and nothing else
+--- stderr of the test run ---
+Terminated: 15
+

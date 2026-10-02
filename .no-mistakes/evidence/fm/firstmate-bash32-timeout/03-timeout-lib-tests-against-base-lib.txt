@@ -1,0 +1,4 @@
+# target a1ee05e test file run against the BASE 87fa81b bin/fm-timeout-lib.sh on Bash 3.2.57
+$ bash tests/fm-timeout-lib.test.sh
+not ok - the watchdog did not pass the command's own status through (rc=1)
+exit=1
